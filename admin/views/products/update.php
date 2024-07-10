@@ -20,7 +20,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Hình Ảnh:</label>
-                            <input type="file" class="form-control" id="image" value="<?= $product['image']?>" placeholder="Nhập Hình ảnh" name="image">
+                            <?php if (!empty($product['image'])): ?>
+                                <div>
+                                    <img src="<?= htmlspecialchars($product['image']) ?>" alt="Product Image" style="max-width: 200px; height: auto;">
+                                </div>
+                            <?php endif; ?>
+                            <input type="file" class="form-control" id="image" name="image">
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Giá:</label>

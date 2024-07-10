@@ -148,10 +148,9 @@ if (!function_exists('update')) {
             debug($e);
         }
     }
-    function updateproduct($tableName, $product_id,  $data = [])
-    {
+    
+    function updateproduct($tableName, $product_id, $data = []) {
         try {
-
             $setParams = get_set_params($data);
             $sql = "
                 UPDATE $tableName
@@ -159,18 +158,42 @@ if (!function_exists('update')) {
                 WHERE product_id = :product_id
             ";
             $stmt = $GLOBALS['conn']->prepare($sql);
-
+    
             foreach ($data as $fieldName => &$value) {
                 $stmt->bindParam(":$fieldName", $value);
             }
-
+    
             $stmt->bindParam(":product_id", $product_id);
-
+    
             $stmt->execute();
         } catch (\Exception $e) {
             debug($e);
         }
     }
+    
+        // function updateproduct($tableName, $product_id,  $data = [])
+        // {
+        //     try {
+
+        //         $setParams = get_set_params($data);
+        //         $sql = "
+        //             UPDATE $tableName
+        //             SET $setParams
+        //             WHERE product_id = :product_id
+        //         ";
+        //         $stmt = $GLOBALS['conn']->prepare($sql);
+
+        //         foreach ($data as $fieldName => &$value) {
+        //             $stmt->bindParam(":$fieldName", $value);
+        //         }
+
+        //         $stmt->bindParam(":product_id", $product_id);
+
+        //         $stmt->execute();
+        //     } catch (\Exception $e) {
+        //         debug($e);
+        //     }
+        // }
 }
 // Delete
 if (!function_exists('delete')) {

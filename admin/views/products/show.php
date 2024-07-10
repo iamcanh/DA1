@@ -20,14 +20,17 @@
                         <th><?= ucfirst($fieldName) ?></th>
                         <th>
                             <?php
-                            switch ($fieldName){
+                            switch ($fieldName) {
+                                case 'image':
+                                    echo '<img src="' . htmlspecialchars($value) . '" alt="Product Image" style="max-width: 200px; height: auto;">';
+                                    break;
                                 case 'category_id':
                                     echo $value
                                         ? 'Balo Nam'
                                         : 'Balo Nu';
                                     break;
                                 default:
-                                    echo $value;
+                                    echo htmlspecialchars($value);
                                     break;
                             }
                             ?>
@@ -35,7 +38,7 @@
                     </tr>
                 <?php endforeach; ?>
             </table>
-            <a class="btn btn-info" href="<?= BASE_URL_ADMIN ?>?act=users">Quay lại</a>
+            <a class="btn btn-info" href="<?= BASE_URL_ADMIN ?>?act=products">Quay lại</a>
         </div>
     </div>
 </div>

@@ -19,7 +19,7 @@ function productShowOnes($product_id)
     if (empty($product)) {
         e404();
     }
-    $title = 'Danh sách sản phẩm : ' . $product['product_name'];
+    $title = 'Chi tiết sản phẩm : ' . $product['product_name'];
     $view = 'products/show';
     require_once PATH_VIEW_ADMIN . 'layouts/master.php';
 }
@@ -105,18 +105,62 @@ function productUpdates($product_id)
     }
     $title = 'Sửa sản phẩm: ' . $product['product_name'];;
     $view = 'products/update';
-    if(!empty($_POST)){
-        // debug($_POST);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Include database connection or relevant code here
+        $product_id = $product['product_id'];
         $data = [
             'product_name' => $_POST['product_name'],
             'price' => $_POST['price'],
             'so_luong' => $_POST['so_luong'],
-            'category_id' => $_POST['category_id'],
+            'category_id' => $_POST['category_id']
         ];
-        updateproduct('users',$product_id , $data);
-        header('Location: ' . BASE_URL_ADMIN . '?act=product-update&product_id=' .$product_id);
+
+        // Handle image upload
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
+            $upload_dir = 'uploads/'; // Directory to save the uploaded files
+            $upload_file = $upload_dir . basename($_FILES['image']['name']);
+            $imageFileType = strtolower(pathinfo($upload_file, PATHINFO_EXTENSION));
+
+            // Check if file is an actual image
+            $check = getimagesize($_FILES['image']['tmp_name']);
+            if ($check !== false) {
+                // Check file size (5MB max)
+                if ($_FILES['image']['size'] <= 5000000) {
+                    // Allow certain file formats
+                    if (in_array($imageFileType, ['jpg', 'png', 'jpeg', 'gif'])) {
+                        if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_file)) {
+                            $data['image'] = $upload_file; // Add image path to data
+                        } else {
+                            echo "Sorry, there was an error uploading your file.";
+                        }
+                    } else {
+                        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    }
+                } else {
+                    echo "Sorry, your file is too large.";
+                }
+            } else {
+                echo "File is not an image.";
+            }
+        }
+        updateproduct('products', $product_id, $data);
+        header('Location: ' . BASE_URL_ADMIN . '?act=product-update&product_id=' . $product_id);
         exit();
+
+        // Update product in the database
     }
+    // if(!empty($_POST)){
+    //     // debug($_POST);
+    //     $data = [
+    //         'product_name' => $_POST['product_name'],
+    //         'price' => $_POST['price'],
+    //         'so_luong' => $_POST['so_luong'],
+    //         'category_id' => $_POST['category_id'],
+    //     ];
+    //     updateproduct('users',$product_id , $data);
+    //     header('Location: ' . BASE_URL_ADMIN . '?act=product-update&product_id=' .$product_id);
+    //     exit();
+    // }
     require_once PATH_VIEW_ADMIN . 'layouts/master.php';
 }
 function productDeletes($product_id)
