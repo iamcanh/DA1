@@ -12,15 +12,13 @@ require_once './commons/model.php';
 require_file(PATH_CONTROLLER);
 require_file(PATH_MODEL);
 
-$users = showOne('users', 1);
-// debug($users);
 // điều hướng
 
 $act = $_GET['act'] ?? '/';
 
 match($act) {
     '/' => homeIndex(),
-    'user-detail' => userDetail($_GET['id']),
+    // 'user-detail' => userDetail($_GET['id']),
 };
 // .......
 require_once './commons/disconnect-db.php';

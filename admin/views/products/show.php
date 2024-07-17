@@ -17,24 +17,25 @@
                 </tr>
                 <?php foreach ($product as $fieldName => $value) : ?>
                     <tr>
-                        <th><?= ucfirst($fieldName) ?></th>
-                        <th>
+                        <td><?= ucfirst($fieldName) ?></td>
+                        <td>
                             <?php
                             switch ($fieldName) {
                                 case 'image':
                                     echo '<img src="' . htmlspecialchars($value) . '" alt="Product Image" style="max-width: 200px; height: auto;">';
                                     break;
                                 case 'category_id':
-                                    echo $value
-                                        ? 'Balo Nam'
-                                        : 'Balo Nu';
+                                    // $i = 0;
+                                    $sx_categories = array_reverse($categories);
+                                    echo $sx_categories[2]["name"];
+                                    // print_r($categories);
                                     break;
                                 default:
                                     echo htmlspecialchars($value);
                                     break;
                             }
                             ?>
-                        </th>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </table>

@@ -1,8 +1,6 @@
 <?php
-
-function homeIndex()
-{
-
-    $users = getAllPhongban();
-    require_once PATH_VIEW .  'home.php';
+function homeIndex(){
+    $view = 'home';
+    
+    require_once PATH_VIEW .'layouts/master.php';
 }

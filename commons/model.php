@@ -62,8 +62,8 @@ if (!function_exists('listAll')) {
     {
         try {
 
-            $sql = "SELECT * FROM $tableName ORDER BY product_id DESC";
-
+            // $sql = "SELECT * FROM $tableName ORDER BY product_id DESC";
+            $sql = "SELECT pr.product_id, pr.product_name,pr.price, pr.so_luong , pr.image, ct.name FROM products AS pr INNER JOIN categories AS ct ON ct.id = pr.category_id;";
             $stmt = $GLOBALS['conn']->prepare($sql);
 
             $stmt->execute();
@@ -110,6 +110,7 @@ if (!function_exists('showOne')) {
             debug($e);
         }
     }
+    
 }
 // Update
 if (!function_exists('get_set_params')) {
@@ -170,30 +171,30 @@ if (!function_exists('update')) {
             debug($e);
         }
     }
+    function updateCategory($tableName, $id,  $data = [])
+    {
+        try {
+
+            $setParams = get_set_params($data);
+            $sql = "
+                UPDATE $tableName
+                SET $setParams
+                WHERE id = :id
+            ";
+            $stmt = $GLOBALS['conn']->prepare($sql);
+
+            foreach ($data as $fieldName => &$value) {
+                $stmt->bindParam(":$fieldName", $value);
+            }
+
+            $stmt->bindParam(":id", $id);
+
+            $stmt->execute();
+        } catch (\Exception $e) {
+            debug($e);
+        }
+    }
     
-        // function updateproduct($tableName, $product_id,  $data = [])
-        // {
-        //     try {
-
-        //         $setParams = get_set_params($data);
-        //         $sql = "
-        //             UPDATE $tableName
-        //             SET $setParams
-        //             WHERE product_id = :product_id
-        //         ";
-        //         $stmt = $GLOBALS['conn']->prepare($sql);
-
-        //         foreach ($data as $fieldName => &$value) {
-        //             $stmt->bindParam(":$fieldName", $value);
-        //         }
-
-        //         $stmt->bindParam(":product_id", $product_id);
-
-        //         $stmt->execute();
-        //     } catch (\Exception $e) {
-        //         debug($e);
-        //     }
-        // }
 }
 // Delete
 if (!function_exists('delete')) {
@@ -221,6 +222,21 @@ if (!function_exists('delete')) {
             $stmt = $GLOBALS['conn']->prepare($sql);
 
             $stmt->bindParam(":product_id", $product_id);
+
+            $stmt->execute();
+        } catch (\Exception $e) {
+            debug($e);
+        }
+    }
+    function deleteCategory($tableName, $category_id,  $data = [])
+    {
+        try {
+
+            $sql = "DELETE FROM $tableName WHERE category_id = :category_id";
+
+            $stmt = $GLOBALS['conn']->prepare($sql);
+
+            $stmt->bindParam(":category_id", $category_id);
 
             $stmt->execute();
         } catch (\Exception $e) {

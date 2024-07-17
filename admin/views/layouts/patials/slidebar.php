@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Admin <sup>2</sup></div>
     </a>
 
     <!-- Divider -->
@@ -34,9 +34,10 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/?act=categories">Quản lý danh mục</a>
+                <a class="collapse-item" href="<?= BASE_URL_ADMIN ?>?act=categories">Quản lý danh mục</a>
                 <a class="collapse-item" href="<?= BASE_URL_ADMIN ?>?act=products">Quản lý sản phẩm</a>
                 <a class="collapse-item" href="<?= BASE_URL_ADMIN ?>?act=users">Quản lý tài khoản</a>
+                <a class="collapse-item" href="<?= BASE_URL_ADMIN ?>?act=orders">Quản lý đơn hàng</a>
             </div>
         </div>
     </li>

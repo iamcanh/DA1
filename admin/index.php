@@ -1,6 +1,7 @@
 <?php
 
 // Require file trong commons
+session_start();
 
 require_once '../commons/env.php';
 require_once '../commons/helper.php';
@@ -16,8 +17,16 @@ require_file(PATH_MODEL_ADMIN);
 
 $act = $_GET['act'] ?? '/';
 
+// Kiểm tra xem user đã đăng nhập chưa
+
+middleware_auth_check($act);
+
 match($act) {
     '/' => dashboard(),
+
+    // Authend
+    'login' => authenShowFormLogin(),
+    'logout' => authenLogout(),
 
     // CRUD User
     'users' => userListAlls(),
@@ -31,6 +40,24 @@ match($act) {
     'product-create' => productCreates(),
     'product-update' => productUpdates($_GET['product_id']),
     'product-delete' => productDeletes($_GET['product_id']),
+    // CRUD Categories
+    'categories' => categorytListAlls(),
+
+    'category-create' => categoryCreates(),
+    // 'category-detail' => categoryShowOnes($_GET['category_id']),
+    'category-update' => categoryUpdates($_GET['id']),
+    'category-delete' => categoryDeletes($_GET['id']),
+    //orders
+    'orders' => orderListAlls(),
+    'order-detail' => orderShowOnes($_GET['id']),
+    'order-update' => orderUpdates($_GET['id']),
+    'order-delete' => orderDeletes($_GET['id']),
+
+    // //Authors
+    // 'authors' => orderListAlls(),
+    // 'author-detail' => authorShowOnes($_GET['id']),
+    // 'author-update' => authorUpdates($_GET['id']),
+    // 'author-delete' => authorDeletes($_GET['id']),
 };
 // .......
 require_once '../commons/disconnect-db.php';

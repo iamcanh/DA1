@@ -9,13 +9,21 @@ function productListAlls()
     $script2 = 'products/script';
     $style = 'datatable';
 
+    
     $products = listAllProduct('products');
+    
 
     require_once PATH_VIEW_ADMIN . 'layouts/master.php';
 }
+
 function productShowOnes($product_id)
 {
+   
+    $categories = listAll('categories');
+    
     $product = showOneProduct('products', $product_id);
+
+    
     if (empty($product)) {
         e404();
     }
@@ -24,29 +32,12 @@ function productShowOnes($product_id)
     require_once PATH_VIEW_ADMIN . 'layouts/master.php';
 }
 
-// function productCreates(){
-//     $title = 'Danh sách sản phẩm';
-//     $view = 'products/create';
-
-//     if(!empty($_POST)){
-//         // debug($_POST);
-//         $data = [
-//             'product_name' => $_POST['product_name'],
-//             'image' => $_FILES['image'],
-//             'price' => $_POST['price'],
-//             'so_luong' => $_POST['so_luong'],
-//             'category_id' => $_POST['category_id']
-//         ];
-//         insert('products', $data);
-//         header('Location: ' . BASE_URL_ADMIN . '?act=products');
-//         exit();
-//     }
-//     require_once PATH_VIEW_ADMIN . 'layouts/master.php';
-// }
 function productCreates()
 {
     $title = 'Danh sách sản phẩm';
     $view = 'products/create';
+
+    $categories = listAll('categories');
 
     if (!empty($_POST)) {
         // Process the uploaded image
@@ -99,6 +90,7 @@ function productCreates()
 
 function productUpdates($product_id)
 {
+    $categories = listAll('categories');
     $product = showOneProduct('products', $product_id);
     if (empty($product)) {
         e404();

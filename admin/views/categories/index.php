@@ -1,12 +1,15 @@
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800"><?= $title ?></h1>
-    
+    <h1 class="h3 mb-2 text-gray-800">
+        <?= $title ?> <br>
+        <br><a class="btn btn-info" href="<?= BASE_URL_ADMIN ?>?act=category-create">Thêm danh mục</a>
+    </h1>
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                Danh sách người dùng
+                Danh sách danh mục
             </h6>
         </div>
         <div class="card-body">
@@ -15,30 +18,19 @@
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Họ và Tên</th>
-                            <th>Mật khẩu</th>
-                            <th>Email</th>
-                            <th>Trạng thái</th>
+                            <th>Tên danh mục</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
-
-
-                        <?php foreach ($users as $user) : ?>
+                        <?php foreach ($categories as $key => $category) : ?>
                             <tr>
-                                <td><?= $user['id'] ?></td>
-                                <td><?= $user['username'] ?></td>
-                                <td><?= $user['email'] ?></td>
-                                <td><?= $user['password'] ?></td>
-                                <td><?= $user['type']
-                                        ? '<span class="badge badge-success">Admin</span>'
-                                        : '<span class="badge badge-warning">Member</span>' ?></td>
+                                <td><?= $key + 1 ?></td>
+                                <td><?= $category['name'] ?></td>
                                 <td>
-                                    <button class="btn btn-success">Xem chi tiết</button>
-                                    <button class="btn btn-warning">Sửa</button>
-                                    <button class="btn btn-danger">Xóa</button>
+                                    <a class="btn btn-warning" href="<?= BASE_URL_ADMIN ?>?act=category-update&id=<?= $category['id'] ?>">Sửa</a>
+                                    <a class="btn btn-danger" href="<?= BASE_URL_ADMIN ?>?act=category-delete&id=<?= $category['id'] ?>" onclick="return confirm('Bạn có chăc muốn xóa không?')">Xóa</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

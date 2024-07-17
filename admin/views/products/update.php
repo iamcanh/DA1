@@ -38,8 +38,13 @@
                         <div class="mb-3">
                             <label for="category_id" class="form-label">Danh mục:</label>
                             <select name="category_id" id="category_id" class="form-control">
-                                <option value="1">Balo Nam</option>
+                                <!-- <option value="1">Balo Nam</option>
                                 <option value="0">Balo Nữ</option>
+                                <option value="0">Balo Thời Trang</option>
+                                <option value="0">Balo Hot</option> -->
+                                <?php foreach ($categories as $category) :?>
+                                    <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Nhập</button>
