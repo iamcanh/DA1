@@ -18,7 +18,13 @@ $act = $_GET['act'] ?? '/';
 
 match($act) {
     '/' => homeIndex(),
-    // 'user-detail' => userDetail($_GET['id']),
+    'trang-chu' => listAllProducts(),
+    'login-client' => Login(),
+    'logup-client' => Register(),
+
+    //Category
+
+    
 };
 // .......
 require_once './commons/disconnect-db.php';

@@ -28,8 +28,8 @@
                         <div class="mb-3">
                             <label for="trangthaithanhtoan" class="form-label">Trạng thái thanh toán:</label>
                             <select name="trangthaithanhtoan" id="trangthaithanhtoan" class="form-control">
-                                <option <?= $order['trangthaithanhtoan'] == 1 ? 'selected' : null ?> value="1">Chưa thanh toán</option>
-                                <option <?= $order['trangthaithanhtoan'] == 0 ? 'selected' : null ?> value="0">Đã thanh toán</option>
+                                <option <?= $order['trangthaithanhtoan'] == 0 ? 'selected' : null ?> value="1">Chưa thanh toán</option>
+                                <option <?= $order['trangthaithanhtoan'] == 1 ? 'selected' : null ?> value="0">Đã thanh toán</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Nhập</button>
@@ -37,7 +37,6 @@
                     </div>
                     <div class="col-md-3"></div>
                 </div>
-
             </form>
         </div>
     </div>

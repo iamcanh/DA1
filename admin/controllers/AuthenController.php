@@ -17,7 +17,7 @@ function authenLogin()
     if (empty($user)) {
         // $_SESSION['user'] = $user;
 
-        // $_SESSION['error'] = 'Email or password chưa đúng!';
+        $_SESSION['error'] = 'Email or password chưa đúng!';
         header('Location: ' . BASE_URL_ADMIN . '?act=login');
         exit();
     }
@@ -27,11 +27,11 @@ function authenLogin()
 }
 function authenLogout()
 {
+    // var_dump($_SESSION);die;
 
     if (!empty($_SESSION['user'])) {
-        session_destroy(); 
+        unset($_SESSION['user']);
     }
-    header('Location: ' . BASE_URL );
+    header('Location: ' . BASE_URL_ADMIN  );
     exit();
 }
-//

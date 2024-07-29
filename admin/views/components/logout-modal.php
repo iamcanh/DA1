@@ -10,7 +10,7 @@
             <div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn sẵn sàng kết thúc phiên hiện tại của mình.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                <a class="btn btn-primary" href="<?= BASE_URL ?>">Đăng xuất</a>
+                <a class="btn btn-primary" href="?act=logout">Đăng xuất</a>
             </div>
         </div>
     </div>

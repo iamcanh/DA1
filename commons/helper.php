@@ -31,19 +31,40 @@ if (!function_exists('e404')) {
     }
 }
 
+function upload_file($file, $folderUpload)
+{
+    // Đảm bảo thư mục đích tồn tại
+    if (!is_dir(PATH_ROOT . $folderUpload)) {
+        mkdir(PATH_ROOT . $folderUpload, 0777, true);
+    }
 
-// if (!function_exists('upload_file')) {
-//     function upload_file($file, $pathFolderUpload)
-//     {
-//         $imagePath = $pathFolderUpload . time() . '-' . basename($file['name']);
+    // Đường dẫn lưu trữ tệp
+    $pathStorage = $folderUpload . time() . '_' . basename($file['name']);
 
-//         if (move_uploaded_file($file['tmp_name'], PATH_UPLOAD . $imagePath)) {
-//             return $imagePath;
-//         }
+    // Đường dẫn từ và đến
+    $from = $file['tmp_name'];
+    $to = PATH_ROOT . $pathStorage;
 
-//         return null;
-//     }
-// }
+    // Di chuyển tệp từ thư mục tạm thời đến thư mục đích
+    if (move_uploaded_file($from, $to)) {
+        return $pathStorage;
+    }
+
+    return null;
+}
+function deleteFile($file)
+{
+    $pathDelete = PATH_ROOT . $file;
+    if (file_exists($pathDelete)) {
+        if (unlink($pathDelete)) {
+            echo "File deleted successfully.";
+        } else {
+            echo "Error deleting file.";
+        }
+    } else {
+        echo "File does not exist.";
+    }
+}
 
 
 // if (!function_exists('get_file_upload')) {
@@ -67,33 +88,9 @@ if (!function_exists('middleware_auth_check')) {
                 header('Location:' . BASE_URL_ADMIN);
                 exit();
             }
-        }
-        elseif (empty($_SESSION['user'])) {
+        } elseif (empty($_SESSION['user'])) {
             header('Location:' . BASE_URL_ADMIN . '?act=login');
             exit();
         }
     }
 }
-
-// if (!function_exists('settings')) {
-//     function settings()
-//     {
-//         $fileSettings = PATH_UPLOAD . '/uploads/settings.json';
-
-//         if (file_exists($fileSettings)) {
-//             $data = json_decode(file_get_contents($fileSettings), true);
-//         } else {
-//             $settings = listAll('settings');
-
-//             $keys = array_column($settings, 'key');
-//             $values = array_column($settings, 'value');
-
-//             $data = array_combine($keys, $values);
-//             // ['logo' => ZenBlog, ....]
-
-//             file_put_contents($fileSettings, json_encode($data));
-//         }
-
-//         return $data;
-//     }
-// }

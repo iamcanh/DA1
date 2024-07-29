@@ -18,24 +18,27 @@
                 </tr>
                 <?php foreach ($order as $fieldName => $value) : ?>
                     <tr>
-                        <th><?= ucfirst($fieldName) ?></th>
-                        <th>
+                        <td><?= ucfirst($fieldName) ?></td>
+                        <td>
                             <?php
                             switch ($fieldName) {
-                                case 'image':
-                                    echo '<img src="' . htmlspecialchars($value) . '" alt="Product Image" style="max-width: 200px; height: auto;">';
-                                    break;
-                                case 'category_id':
+
+                                case 'trangthai':
                                     echo $value
-                                        ? 'Balo Nam'
-                                        : 'Balo Nu';
+                                        ? '<span class="badge badge-success">Chưa xác nhận</span>'
+                                        : '<span class="badge badge-warning">Đã xác nhận</span>';
+                                    break;
+                                case 'trangthaithanhtoan':
+                                    echo $value
+                                        ? '<span class="badge badge-success">Đã thanh toán</span>'
+                                        : '<span class="badge badge-warning">Chưa thanh toán</span>';
                                     break;
                                 default:
-                                    echo htmlspecialchars($value);
+                                    echo $value;
                                     break;
                             }
                             ?>
-                        </th>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </table>

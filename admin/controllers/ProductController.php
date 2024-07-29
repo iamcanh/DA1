@@ -22,7 +22,6 @@ function productShowOnes($product_id)
     $categories = listAll('categories');
     
     $product = showOneProduct('products', $product_id);
-
     
     if (empty($product)) {
         e404();
@@ -87,7 +86,6 @@ function productCreates()
     require_once PATH_VIEW_ADMIN . 'layouts/master.php';
 }
 
-
 function productUpdates($product_id)
 {
     $categories = listAll('categories');
@@ -109,7 +107,7 @@ function productUpdates($product_id)
 
         // Handle image upload
         if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
-            $upload_dir = 'uploads/'; // Directory to save the uploaded files
+            $upload_dir = './uploads/'; // Directory to save the uploaded files
             $upload_file = $upload_dir . basename($_FILES['image']['name']);
             $imageFileType = strtolower(pathinfo($upload_file, PATHINFO_EXTENSION));
 

@@ -5,7 +5,12 @@
 if (!function_exists('get_str_keys')) {
     function get_str_keys($data)
     {
-        return implode(', ', array_keys($data));
+        $keys = array_keys($data);
+
+        $keysTenTen = array_map(function ($key) {
+            return "`$key`";
+        }, $keys);
+        return implode(', ', $keysTenTen);
     }
 }
 
@@ -17,6 +22,18 @@ if (!function_exists('get_virtual_params')) {
         $tmp = [];
         foreach ($keys as $key) {
             $tmp[] = ":$key";
+        }
+        return implode(', ', $tmp);
+    }
+}
+if (!function_exists('get_set_params')) {
+    function get_set_params($data)
+    {
+        $keys = array_keys($data);
+
+        $tmp = [];
+        foreach ($keys as $key) {
+            $tmp[] = "`$key` = :$key";
         }
         return implode(', ', $tmp);
     }
@@ -58,12 +75,16 @@ if (!function_exists('listAll')) {
             debug($e);
         }
     }
-    function listAllProduct($tableName)
+    function listAllProduct()
     {
         try {
 
             // $sql = "SELECT * FROM $tableName ORDER BY product_id DESC";
-            $sql = "SELECT pr.product_id, pr.product_name,pr.price, pr.so_luong , pr.image, ct.name FROM products AS pr INNER JOIN categories AS ct ON ct.id = pr.category_id;";
+            $sql = "SELECT pr.product_id, pr.product_name,pr.price, pr.so_luong , pr.image, pr.content, ct.name 
+                    FROM products 
+                    AS pr 
+                    INNER JOIN categories AS ct ON ct.id = pr.category_id;";
+                    
             $stmt = $GLOBALS['conn']->prepare($sql);
 
             $stmt->execute();
@@ -97,8 +118,12 @@ if (!function_exists('showOne')) {
     {
         try {
 
-            $sql = "SELECT * FROM $tableName WHERE product_id = :product_id LIMIT 1";
-
+            // $sql = "SELECT * FROM $tableName WHERE product_id = :product_id LIMIT 1";
+            $sql = "SELECT pr.product_id, pr.product_name,pr.price, pr.so_luong , pr.image, ct.name 
+            FROM products 
+            AS pr 
+            INNER JOIN categories AS ct ON ct.id = pr.category_id
+            WHERE product_id = :product_id LIMIT 1";
             $stmt = $GLOBALS['conn']->prepare($sql);
 
             $stmt->bindParam(":product_id", $product_id);
@@ -113,18 +138,7 @@ if (!function_exists('showOne')) {
     
 }
 // Update
-if (!function_exists('get_set_params')) {
-    function get_set_params($data)
-    {
-        $keys = array_keys($data);
 
-        $tmp = [];
-        foreach ($keys as $key) {
-            $tmp[] = "$key = :$key";
-        }
-        return implode(', ', $tmp);
-    }
-}
 if (!function_exists('update')) {
     function update($tableName, $id,  $data = [])
     {
@@ -170,30 +184,7 @@ if (!function_exists('update')) {
         } catch (\Exception $e) {
             debug($e);
         }
-    }
-    function updateCategory($tableName, $id,  $data = [])
-    {
-        try {
-
-            $setParams = get_set_params($data);
-            $sql = "
-                UPDATE $tableName
-                SET $setParams
-                WHERE id = :id
-            ";
-            $stmt = $GLOBALS['conn']->prepare($sql);
-
-            foreach ($data as $fieldName => &$value) {
-                $stmt->bindParam(":$fieldName", $value);
-            }
-
-            $stmt->bindParam(":id", $id);
-
-            $stmt->execute();
-        } catch (\Exception $e) {
-            debug($e);
-        }
-    }
+    }   
     
 }
 // Delete

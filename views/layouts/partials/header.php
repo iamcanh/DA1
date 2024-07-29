@@ -19,17 +19,17 @@
                             <a href="#"><i class="fa fa-pinterest-p"></i></a>
                         </div>
                         <div class="header__top__right__language">
-                            <img src="assets/client/img/language.png" alt="">
-                            <div>English</div>
+                            <i class="fa fa-user"></i>
+
                             <span class="arrow_carrot-down"></span>
                             <ul>
-                                <li><a href="#">Spanis</a></li>
-                                <li><a href="#">English</a></li>
+                                <li><a href="<?= BASE_URL ?>?act=login-client">Login</a></li>
+                                <li><a href="<?= BASE_URL ?>?act=logup-client">Register</a></li>
                             </ul>
                         </div>
-                        <div class="header__top__right__auth">
+                        <!-- <div class="header__top__right__auth">
                             <a href="#"><i class="fa fa-user"></i> Login</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -39,15 +39,15 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="assets/client/img/balo/logo.png" alt=""></a>
+                    <a href="<?= BASE_URL ?>"><img src="assets/client/img/balo/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
+                        <li class="active"><a href="">Trang chủ</a></li>
                         <li><a href="./shop-grid.html">Shop</a></li>
-                        <li><a href="#">Pages</a>
+                        <li><a href="#">Danh mục</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="./shop-details.html">Shop Details</a></li>
                                 <li><a href="./shoping-cart.html">Shoping Cart</a></li>
@@ -56,7 +56,7 @@
                             </ul>
                         </li>
                         <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="./contact.html">Liên hệ</a></li>
                     </ul>
                 </nav>
             </div>

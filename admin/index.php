@@ -58,6 +58,11 @@ match($act) {
     // 'author-detail' => authorShowOnes($_GET['id']),
     // 'author-update' => authorUpdates($_GET['id']),
     // 'author-delete' => authorDeletes($_GET['id']),
+
+    
+    // Setttings
+    'setting-form' => settingShowForm(),
+    'setting-save' => settingSave(),
 };
 // .......
 require_once '../commons/disconnect-db.php';

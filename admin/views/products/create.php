@@ -20,7 +20,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Hình Ảnh:</label>
-                            <input type="file" class="form-control" id="image" placeholder="Nhập Hình ảnh" name="image">
+                            <input type="file" class="form-control"  placeholder="Nhập Hình ảnh" name="image" required>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Giá:</label>
@@ -33,10 +33,7 @@
                         <div class="mb-3">
                             <label for="category_id" class="form-label">Danh mục:</label>
                             <select name="category_id" id="category_id" class="form-control">
-                                <!-- <option value="1">Balo Nam</option>
-                                <option value="0">Balo Nữ</option>
-                                <option value="0">Balo Thời Trang</option>
-                                <option value="0">Balo Hot</option> -->
+                                <option selected disabled>Chọn danh mục sản phẩm</option>
                                 <?php foreach ($categories as $category) :?>
                                     <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
                                 <?php endforeach; ?>
