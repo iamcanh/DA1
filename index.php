@@ -19,9 +19,6 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang chủ
     '/' => (new HomeController())->homeIndex(), //trường hợp đặc biệt
-
-    // BASE_URL?act=trangchu
-    // 'trangchu' =>(new HomeController())->trangChu(),
-    // 'danh-sach-san-pham'=>(new HomeController())->danhSachSanPham()
+    'danh-sach-san-pham'=>(new HomeController())->danhSachSanPham()
     
 };

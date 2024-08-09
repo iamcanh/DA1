@@ -25,6 +25,60 @@ class SanPham
             echo $e->getMessage() . "Lỗi";
         }
     }
+    public function get3Product()
+    {
+        try {
+            $sql = 'SELECT * 
+            FROM san_phams 
+            ORDER BY ngay_nhap DESC 
+            LIMIT 3;
+            ';
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getMessage() . "Lỗi";
+        }
+    }
+    public function get3ViewProduct()
+    {
+        try {
+            $sql = 'SELECT * 
+            FROM san_phams 
+            ORDER BY luot_xem DESC 
+            LIMIT 3;
+            ';
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getMessage() . "Lỗi";
+        }
+    }
+    public function get3CommentProduct()
+    {
+        try {
+            $sql = 'SELECT DISTINCT san_phams.* 
+            FROM san_phams
+            JOIN binh_luans bl ON san_phams.id = bl.san_pham_id
+            LIMIT 3;
+            ';
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo $e->getMessage() . "Lỗi";
+        }
+    }
     public function getAllCategory()
     {
         try {
